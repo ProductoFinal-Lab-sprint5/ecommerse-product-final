@@ -1,34 +1,48 @@
 const begin = () => {
   console.log('hola mundo');
   let categories = [];
-  let idCategoriePeruCameras = '/categories/MPE1039';
+  let subCategories = [];
+  let idCategoriePeruCameras = 'MPE1039';
   let idSubCategories = '';
   
   const api = {
-    urlCamares: `https://api.mercadolibre.com${idCategoriePeruCameras}`,
-    urlSubCategories: `https://api.mercadolibre.com${idSubCategories}`
+    urlCamares: `https://api.mercadolibre.com/categories/${idCategoriePeruCameras}`,
+    // urlSubCategories: `http://cors.io/?http://https://api.mercadolibre.com${subCategories[i]}`
   };
 
   const uploadCategorieCameras = () =>{
     $.getJSON(api.urlCamares, function(response) {
-      childrenCategories = response.children_categories;
-      childrenCategories.forEach(viewCategorie);
-      console.log(response);
-      console.log(childrenCategories.id);
+      categories = response.children_categories;
+      // almaceno en el array los id de cada subcategoria   
+      categories.forEach(function(id, i) {
+        subCategories.push(categories[i].id);
+      });
+      console.log(subCategories);
+      uploadSubcategories();
+      // categories.forEach(viewCategorie);
     });
   };
 
+  const uploadSubcategories = () => {
+    for (let i in categories) {
+      $.getJSON(`https://api.mercadolibre.com//categories/${subCategories[i]}`, function(response2) {
+        subcategoriesChildren = response2.children_categories;
+        console.log(response2);
+        console.log(subcategoriesChildren);
+        viewCategorie(response2, subcategoriesChildren);
+      });
+    };
+  };
 
+  const viewCategorie = (data, childrenCategories) => {
+    console.log(data.name);
+    for (let i in childrenCategories) {
+      console.log(childrenCategories[i].name);
+      const templateSubcategorie = `<li><a href="">${childrenCategories[i].name}</a></li>`;
+      $('#containerSubcategorie').append(templateSubcategorie);
+    }
+    
 
-  //   /** insertar la información en una tabla de contenidos **/
-  const viewCategorie = data => {
-  // let contentCategorie = data.children_categories;
-  //   let author = data.author_name;
-  //   let id = data.id;
-  //   let answers = data.responses_count;
-  //   countThemes += 1;
-  //   // console.log(contentTheme);
-    console.log(data);
     const templateCategorie = `<div class="card">
                               <div class="card-header" id="headingOne">
                                 <h5 class="mb-0 text-center">
@@ -39,12 +53,21 @@ const begin = () => {
                               </div>
                               <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
                                 <div class="card-body p-0">
+                                  <ul class="list-group" >
+                                    
+                                  </ul>
                                 </div>
                               </div>
-                            </div> `;
+                            </div>`;
     $('#containerCategorie').append(templateCategorie);
   };
-  // viewCategorie()
+
+  // const viewSubcategorie = () => {
+  //   const templateSubcategorie = `<li class="list-group-item"><a href="">${dat.children_categories[i]}</a></li>`;
+  //   $('#containerSubcategorie').append(templateSubcategorie);
+  // };
+ 
+  
   uploadCategorieCameras();
 };
 $(document).ready(begin);
