@@ -19,31 +19,31 @@ const begin = () => {
       });
       console.log(subCategories);
       uploadSubcategories();
-      // categories.forEach(viewCategorie);
+      categories.forEach(viewCategorie);
     });
   };
 
   const uploadSubcategories = () => {
     for (let i in categories) {
-      $.getJSON(`https://api.mercadolibre.com//categories/${subCategories[i]}`, function(response2) {
-        subcategoriesChildren = response2.children_categories;
-        console.log(response2);
-        console.log(subcategoriesChildren);
-        viewCategorie(response2, subcategoriesChildren);
+      $.getJSON(`https://api.mercadolibre.com/sites/MPE/search?category=${subCategories[i]}`, function(response2) {
+        console.log(response2.results);
+        $('#results-search').on('click', function() {
+        
+        });
       });
     };
   };
 
   const viewCategorie = (data, childrenCategories) => {
     console.log(data.name);
-    for (let i in childrenCategories) {
-      console.log(childrenCategories[i].name);
-      const templateSubcategorie = `<li><a href="">${childrenCategories[i].name}</a></li>`;
-      $('#containerSubcategorie').append(templateSubcategorie);
-    }
+    // for (let i in childrenCategories) {
+    //   console.log(childrenCategories[i].name);
+    //   const templateSubcategorie = `<li><a href="">${childrenCategories[i].name}</a></li>`;
+    //   $('#containerSubcategorie').append(templateSubcategorie);
+    // }
     
 
-    const templateCategorie = `<div class="card">
+    const templateCategorie = `<div class="card" id="results-search">
                               <div class="card-header" id="headingOne">
                                 <h5 class="mb-0 text-center">
                                   <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
