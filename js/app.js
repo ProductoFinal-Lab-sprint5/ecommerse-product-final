@@ -23,7 +23,7 @@ $.ajax({
 
 function generateAllProductsHTML(data) {
   var list = $('.products-list');
-  
+
   var theTemplateScript = $('#products-template').html();
   // Compile the template​
   var theTemplate = Handlebars.compile(theTemplateScript);
@@ -38,15 +38,16 @@ function generateAllProductsHTML(data) {
   });
 }
 function singleProductsHTML() {
-  
+
 }
 function generateAllCategoriesHTML(data) {
   let listCategory = $('.category-list');
   let theTemplateScriptC = $('#categories-template').html();
   var theTemplate = Handlebars.compile(theTemplateScriptC);
   listCategory.append(theTemplate(data));
-  
+
   listCategory.find('li').on('click', function(event) {
+
     console.log(event.target);
     console.log($(this).attr('data-index'));
     indexCat = $(this).attr('data-index');
@@ -63,8 +64,40 @@ function generateAllCategoriesHTML(data) {
         let products = data.results;
         generateAllProductsHTML(products);
         $(window).trigger('hashchange');
+
+      addProductsCar();
       },
       error: function(request) {}
     });
   });
 }
+
+
+
+function addProductsCar() {
+  paypal.minicart.render({
+  strings:{
+    button:'Pagar'
+   ,buttonAlt: "Total"
+   ,subtotal: 'Total:'
+   ,empty: 'No hay productos en el carrito'
+  }
+  });
+  // Eventos para agregar productos al carrito
+
+   $('.producto').click(function(e){
+
+       e.stopPropagation();
+       paypal.minicart.cart.add({
+        business: 'anacarlavegam-facilitator@gmail.com',
+        item_name: $(this).attr("titulo"),
+         amount: $(this).attr("precio"),
+         currency_code: 'USD',
+    });
+   });
+}
+
+
+// NOTA: para poder pagar a travez de paypal ingrese
+// correo: anacarlavegam-buyer@gmail.com
+// contraseña: mujerlunabella1
