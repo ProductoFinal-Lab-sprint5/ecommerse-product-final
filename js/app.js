@@ -15,10 +15,6 @@ $(function() {
     success: function(data) {
       console.log(data.children_categories);
       subCategories = data.children_categories;
-      /* $.each(subCategories, function(i, data) {
-      let output = `<li id="${data.id}" class="category"><a href="#" data-id="${data.id}">${data.name}</a></li>`;
-      $('#data-categories').append(output);
-    }); */
       generateAllCategoriesHTML(subCategories);
       $(window).trigger('hashchange');
     },
@@ -38,7 +34,7 @@ $(function() {
       window.location.hash = 'product/' + productIndex;
       console.log(productIndex);
       // generateSingleProductsHTML(productIndex);
-    });
+    });    
   }
   // Genera todas las Categorias en el DOM 
   function generateAllCategoriesHTML(data) {
@@ -83,7 +79,7 @@ $(function() {
       error: function(request) {
         console.log('no recibe argumento')
         ;
-}
+      }
     });
   }
   
@@ -157,7 +153,7 @@ $(function() {
 
     // Oculta todos los productos en la lista de productos.
     allProducts.addClass('hidden');
-    //Iterando para ocultar todos los productos
+    // Iterando para ocultar todos los productos
     allProducts.each(function() {
       let that = $(this);
       console.log(that);
@@ -199,7 +195,6 @@ $(function() {
           // Populate '.preview-large' with the chosen product's data.
           container.find('h3').text(item.title);
           container.find('#img-item').attr('src', item.thumbnail);
-     
         }
       });
     }
@@ -214,6 +209,7 @@ $(function() {
     let page = $('.error');
     page.addClass('visible');
   }
-
-
+    
+   
+  // Eventos para agregar productos al carrito
 });
