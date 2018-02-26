@@ -1,5 +1,4 @@
 
-//
 $(function() {
   // Variable que almacena el token de mercado libre
   let token = 'APP_USR-484452126434281-022418-b31c5d304dcc66db9034b963dad75b59__C_J__-303765493';
@@ -29,14 +28,10 @@ $(function() {
   // Genera todos  los productos de la categoria seleccionada en el DOM
   function generateAllProductsHTML(data) {
     let list = $('.products-list');
-  
     let theTemplateScript = $('#products-template').html();
-    // let
     let theTemplate = Handlebars.compile(theTemplateScript);
     list.append(theTemplate(data));
-    // Each products has a data-index attribute.
-    // On click change the url hash to open up a preview for this product only.
-    // Remember: every hashchange triggers the render function.
+    // Al hacer click obtiene el atributo index para cambiar el url
     list.find('li').on('click', function(e) {
       e.preventDefault();
       productIndex = $(this).data('index');
@@ -68,7 +63,7 @@ $(function() {
           console.log(data.results);
           products = data.results;
           generateAllProductsHTML(products);
-          //$(window).trigger('hashchange');
+          $(window).trigger('hashchange');
         },
         error: function(request) {}
       });
@@ -94,35 +89,33 @@ $(function() {
   
 
   // Funcionalidad SPA
-  // Single product page buttons
+  // Pagina de un solo producto
   let singleProductPage = $('.single-product');
 
   singleProductPage.on('click', function(e) {
     if (singleProductPage.hasClass('visible')) {
       let clicked = $(e.target);
 
-      // If the close button or the background are clicked go to the previous page.
+      // Si se hace clic en el botón de cerrar o en el fondo, vaya a la página anterior.
       if (clicked.hasClass('close') || clicked.hasClass('overlay')) {
-        // Change the url hash with the last used filters.
+        // Cambia a la ultima vista de productos
         window.location.hash = '#';
       }
     }
   });
-  // These are called on page load
-  // An event handler with calls the render function on every hashchange.
-  // The render function will show the appropriate content of out page.
+  // en el evento hashchange muestra el contenido
   $(window).on('hashchange', function() {
     render(decodeURI(window.location.hash));
   });
 
 
-  // Navigation
+  // Navegacion
 
   function render(url) {
-    // Get the keyword from the url.
+    // Obtiene la palabra clave de la url
     let temp = url.split('/')[0];
 
-    // Hide whatever page is currently shown.
+    // Ocultar la página que se muestra actualmente.
     $('.main-content .page').removeClass('visible');
 
 
@@ -130,14 +123,14 @@ $(function() {
 
       // The "Homepage".
       '': function() {
-        // show all the products     
+        // Muestra todos los productos    
 
         renderProductsPage(subCategories);
       },
 
-      // Single Products page.
+      // Pagina de un solo producto
       '#product': function() {
-        // Get the index of which product we want to show and call the appropriate function.
+        // Obtiene el indicae del producto que va a mostrar
         index = url.split('#product/')[1].trim();
 
         renderSingleProductPage(index, products);
@@ -146,27 +139,25 @@ $(function() {
 
     };
 
-    // Execute the needed function depending on the url keyword (stored in temp).
+    // Ejecute la función necesaria según la palabra clave url (almacenada en temp).
     if (map[temp]) {
       map[temp]();
     }
-    // If the keyword isn't listed in the above - render the error page.
+    // visualiza la página de error
     else {
       renderErrorPage();
     }
   }
 
 	
-  // This function receives an object containing all the product we want to show.
+  // Funcion que obtendra el producto a mostrar
   function renderProductsPage(data) {
     let page = $('.all-products'),
       allProducts = $('.all-products .products-list > li');
 
-    // Hide all the products in the products list.
+    // Oculta todos los productos en la lista de productos.
     allProducts.addClass('hidden');
-
-    // Iterate over all of the products.
-    // If their ID is somewhere in the data object remove the hidden class to reveal them.
+    //Iterando para ocultar todos los productos
     allProducts.each(function() {
       let that = $(this);
       console.log(that);
@@ -177,19 +168,17 @@ $(function() {
       });
     });
 
-    // Show the page itself.
-    // (the render function hides all pages so we need to show the one we want).
+    // Muestra la pagina
+    // (la función de renderizado oculta todas las páginas, así que tenemos que mostrar la que queremos).
     page.addClass('visible');
   }
 
-
-  // Opens up a preview for one of the products.
-  // Its parameters are an index from the hash and the products object.
+  // Función que obtiene los datos para la página que muestra solo un producto
   function renderSingleProductPage(index, data) {
     let page = $('.single-product'),
       container = $('.preview-large');
     
-    // Find the wanted product by iterating the data object and searching for the chosen index.
+    // Busca el indice y compara para la muestra de datos
     if (data.length) {
       data.forEach(function(item) {
         if (item.id == index) {
@@ -210,33 +199,21 @@ $(function() {
           // Populate '.preview-large' with the chosen product's data.
           container.find('h3').text(item.title);
           container.find('#img-item').attr('src', item.thumbnail);
-          
-          /* container.find('p').text(datad[0].url); */
-          /*  container.find('p').text(item.description); */
+     
         }
       });
     }
 
-    // Show the page.
+  
     page.addClass('visible');
   }
 
 
-  // Shows the error page.
+  // Muestra pagina d error
   function renderErrorPage() {
     let page = $('.error');
     page.addClass('visible');
   }
 
-  // Get the filters object, turn it into a string and write it into the hash.
-  function createQueryHash(filters) {
-    // Here we check if filters isn't empty.
-    if (!$.isEmptyObject(filters)) {
-      // Stringify the object via JSON.stringify and write it after the '#filter' keyword.
-      window.location.hash = '#filter/' + JSON.stringify(filters);
-    } else {
-      // If it's empty change the hash to '#' (the homepage).
-      window.location.hash = '#';
-    }
-  }
+
 });
