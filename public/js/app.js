@@ -93,12 +93,13 @@ function addProductsCar() {
   });
 }
 
-// $(document).ready(function() {
-//   $('.event-photo').click(function(error) {
-//     error.preventDefault();
-//     $('#imagen').addClass('d-none');
-//   });
-// });
+$(document).ready(function() {
+  $('.event-photo').click(function(error) {
+    error.preventDefault();
+    $('#imagen').addClass('d-none');
+    $('#box-template-data').removeClass('d-none');
+  });
+});
 
 
 // NOTA: para poder pagar a travez de paypal ingrese

@@ -30,7 +30,7 @@
                   <div id="data-categories" class="category-list list-group ">
                     <script type="x-handlebars-template" id="categories-template">
                       {{#each this}}
-                        <a data-index="{{id}}" href="#" class="list-group-item list-group-item-action event-photo">{{name}}</a>
+                        <h4><a data-index="{{id}}" href="#" class="list-group-item list-group-item-action event-photo">{{name}}</a></h4>
                       {{/each}}
                     </script>
                   </div>
@@ -38,32 +38,43 @@
               </div>
             </div>
           </div>
-          <div class="col-md-9 pl-5 pr-5 mt-5 pt-5">
-            
-            <ul class="products-list list-unstyled">
-              <script type="x-handlebars-template" id="products-template">
-                <div class="card-deck">
-                  {{#each this}}
-                    <li data-index="{{id}}">
-                      <div class="card col-12 mt-4" >
-                        <div class="card-body">
-                          <div class="row">
-                            <div class="col-4">
-                              <img class="card-img-top" src="{{thumbnail}}" alt="{{id}}">
-                            </div>
-                            <div class="col-8">
-                              <h5 class="card-title">{{title}}</h5>
-                              <p class="card-text">S/{{price}}</p>
-                              <a href="#" class="btn btn-primary producto" precio="{{price}}" titulo="{{title}}"role="button">Add a Carrito</a>
+          <div class="col-md-9 p-0">
+            <div id="imagen">
+              <div class="bg-img">
+                <div class="box-img-found"><br><br>
+                  <p class="now">DIA DE </p>
+                  <p class="dsct">DSCTO 20%</p>
+                </div>     
+              </div>
+            </div>
+            <div class="d-none"  id="box-template-data">
+              <div class=" pl-5 pr-5 mt-5 pt-5">
+                <ul class="products-list list-unstyled">
+                  <script type="x-handlebars-template" id="products-template">
+                    <div class="card-deck">
+                      {{#each this}}
+                        <li data-index="{{id}}">
+                          <div class="card col-12 mt-4" >
+                            <div class="card-body">
+                              <div class="row">
+                                <div class="col-4">
+                                  <img class="card-img-top" src="{{thumbnail}}" alt="{{id}}">
+                                </div>
+                                <div class="col-8">
+                                  <h5 class="card-title">{{title}}</h5>
+                                  <p class="card-text">S/{{price}}</p>
+                                  <a href="#" class="btn btn-primary producto" precio="{{price}}" titulo="{{title}}"role="button">Add a Carrito</a>
+                                </div>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      </div>
-                    </li>
-                  {{/each}}
-                </div>
-              </script>
-            </ul>
+                        </li>
+                      {{/each}}
+                    </div>
+                  </script>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
       </div>
