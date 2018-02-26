@@ -6,17 +6,28 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link href='//fonts.googleapis.com/css?family=Glegoo:400,700' rel='stylesheet' type='text/css'>
+<link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
+  <header>
+    <div class="header ">
+      <div class="">
+        <div class="w3l_logo ">
+          <h1><a href="index.html">Electronic Store<span>Your stores. Your place.</span></a></h1>
+        </div>
+      </div>
+    </div>
+  </header>
 
-  <div class="all-products">
-    <div class="sub-categories">
-      <ul id="data-categories" class="category-list">
+<div class="all-products">
+    <div class="sub-categories container-fluid">
+      <ul id="data-categories" class="category-list fondo-black row">
         <script type="x-handlebars-template" id="categories-template">
             {{#each this}}
-            <li data-index="{{id}}">
-              <a href="#">{{name}}</a>
+            <li data-index="{{id}}" class="col-xs-3 box-li">
+              <a class="color-white" href="#">{{name}}</a>
             </li>
           {{/each}}
         </script>
@@ -41,6 +52,27 @@
       </script>
     </ul>
   </div>
+
+
+  <main >
+    <div class="">
+      <div class="bg-img">
+        <div class="box-img-found">
+          <p class="now">DIA DE </p>
+          <p class="dsct">DSCTO 20%</p>
+        </div>
+
+
+
+      </div>
+    </div>
+  </main>
+
+
+
+
+
+
   <script
   src="http://code.jquery.com/jquery-3.3.1.min.js"
   integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
