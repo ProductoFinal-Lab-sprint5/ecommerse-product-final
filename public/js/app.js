@@ -23,14 +23,18 @@ $(function() {
   function generateAllProductsHTML(data) {
     let list = $('.products-list');
     let theTemplateScript = $('#products-template').html();
-    // let
+
     let theTemplate = Handlebars.compile(theTemplateScript);
     list.append(theTemplate(data));
+    buyPaypal();
+
     list.find('img').on('click', function(e) {
       e.preventDefault();
       productIndex = $(this).data('index');
       window.location.hash = 'product/' + productIndex;
+
     });
+
   }
   // Genera todas las Categorias en el DOM
   function generateAllCategoriesHTML(data) {
@@ -190,7 +194,7 @@ $(function() {
   }
 
 
-  /*  function addProductsCar() {
+   function buyPaypal() {
     paypal.minicart.render({
       strings: {
         button: 'Pagar'
@@ -210,9 +214,8 @@ $(function() {
         currency_code: 'USD',
       });
     });
-  } */
+  }
 });
-
 
 // NOTA: para poder pagar a travez de paypal ingrese
 // correo: anacarlavegam-buyer@gmail.com
