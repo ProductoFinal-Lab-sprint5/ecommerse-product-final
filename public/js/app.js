@@ -24,15 +24,16 @@ const begin = () =>{
                                 <div class="card-body">
                                   <p class="card-title">${elem.title}</p>
                                   <p class="card-title">S/. ${elem.price}</p>                                  
-                                  <a href="#" class="product btn btn-primary">Comprar</a>
+                                  <input class="product btn btn-primary" type="button" precio=${elem.price} titulo=${elem.listing_type_id} value="comprar"/>
                                 </div>
                               </div>`;
         $('#box-cards').append(templateList);
       });
+      addProductsCar();
     });
   };
 
-  const addProductsCar = () => {
+  function addProductsCar() {
     paypal.minicart.render({
       strings: {
         button: 'Pagar'
@@ -43,8 +44,8 @@ const begin = () =>{
     });
     // Eventos para agregar productos al carrito
   
-    $('.product').click(function(e) {
-      e.stopPropagation();
+    $('.product').click(function(event) {
+      event.stopPropagation();
       paypal.minicart.cart.add({
         business: 'anacarlavegam-facilitator@gmail.com',
         item_name: $(this).attr('titulo'),
